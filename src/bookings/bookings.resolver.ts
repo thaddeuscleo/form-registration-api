@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { BookingsService } from './bookings.service';
 import { Booking } from './entities/booking.entity';
 import { CreateBookingInput } from './dto/create-booking.input';
@@ -9,7 +9,9 @@ export class BookingsResolver {
   constructor(private readonly bookingsService: BookingsService) {}
 
   @Mutation(() => Booking)
-  createBooking(@Args('createBookingInput') createBookingInput: CreateBookingInput) {
+  createBooking(
+    @Args('createBookingInput') createBookingInput: CreateBookingInput,
+  ) {
     return this.bookingsService.create(createBookingInput);
   }
 
@@ -24,7 +26,9 @@ export class BookingsResolver {
   }
 
   @Mutation(() => Booking)
-  updateBooking(@Args('updateBookingInput') updateBookingInput: UpdateBookingInput) {
+  updateBooking(
+    @Args('updateBookingInput') updateBookingInput: UpdateBookingInput,
+  ) {
     return this.bookingsService.update(updateBookingInput);
   }
 

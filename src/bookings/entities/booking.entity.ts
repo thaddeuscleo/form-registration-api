@@ -21,5 +21,5 @@ export class Booking {
   attendanceCount: number;
 
   @Field(() => Date, { description: 'Number of seat seated by the person' })
-  createdAt: Date
+  createdAt: Date;
 }
