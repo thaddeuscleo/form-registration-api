@@ -25,18 +25,9 @@ type Booking {
   phone: String!
 }
 
-input CreateBookingInput {
-  """Number of seat booked by the person"""
-  bookedSeatCount: Int!
-
-  """Person email"""
-  email: String!
-
+input CreateEventInput {
   """Person Name"""
   name: String!
-
-  """Person Phone"""
-  phone: String!
 }
 
 """
@@ -44,28 +35,32 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Event {
+  """Bookings in a event"""
+  bookings: [Booking!]!
+
+  """Number of seat seated by the person"""
+  createdAt: DateTime!
+
+  """Booking ID"""
+  id: ID!
+
+  """Event Name"""
+  name: String!
+}
+
 type Mutation {
-  createBooking(createBookingInput: CreateBookingInput!): Booking!
-  removeBooking(id: String!): Booking!
-  updateBooking(updateBookingInput: UpdateBookingInput!): Booking!
+  createBooking(createBookingInput: CreateEventInput!): Event!
+  removeBooking(id: String!): Event!
+  updateBooking(updateBookingInput: UpdateEventInput!): Event!
 }
 
 type Query {
-  booking(email: String!): Booking!
-  bookings: [Booking!]!
+  booking(email: String!): Event!
+  bookings: [Event!]!
 }
 
-input UpdateBookingInput {
-  """Number of seat booked by the person"""
-  bookedSeatCount: Int
-
-  """Person email"""
-  email: String
+input UpdateEventInput {
   id: ID!
-
-  """Person Name"""
-  name: String
-
-  """Person Phone"""
-  phone: String
+  name: String!
 }

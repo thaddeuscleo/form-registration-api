@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Int, Field, ID } from '@nestjs/graphql';
 import {
   IsEmail,
   IsInt,
@@ -48,4 +48,7 @@ export class CreateBookingInput {
   })
   @Field(() => Int, { description: 'Number of seat booked by the person' })
   bookedSeatCount: number;
+
+  @Field(() => ID)
+  eventId: string;
 }

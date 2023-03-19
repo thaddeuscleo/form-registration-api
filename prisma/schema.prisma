@@ -15,7 +15,16 @@ model Booking {
   name            String   @db.VarChar(20)
   email           String   @unique
   phone           String   @unique
-  bookedSeatCount Int      
+  bookedSeatCount Int
   attendanceCount Int      @default(0)
   createdAt       DateTime @default(now())
+  eventId         String
+  event           Event    @relation(fields: [eventId], references: [id])
+}
+
+model Event {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  booking   Booking[]
 }

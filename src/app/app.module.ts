@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config/dist';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { BookingsModule } from 'src/bookings/bookings.module';
+import { EventsModule } from 'src/events/events.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { BookingsModule } from 'src/bookings/bookings.module';
       },
     }),
     BookingsModule,
+    EventsModule,
   ],
 })
 export class AppModule {}

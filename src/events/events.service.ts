@@ -1,37 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateBookingInput } from './dto/create-booking.input';
-import { UpdateBookingInput } from './dto/update-booking.input';
+import { CreateEventInput } from './dto/create-event.input';
+import { UpdateEventInput } from './dto/update-event.input';
 
 @Injectable()
-export class BookingsService {
+export class EventsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create({ name, email, phone, bookedSeatCount, eventId }: CreateBookingInput) {
-    return this.prisma.booking.create({
+  create({ name }: CreateEventInput) {
+    return this.prisma.event.create({
       data: {
         name,
-        email,
-        phone,
-        bookedSeatCount,
-        eventId
       },
     });
   }
 
   findAll() {
-    return this.prisma.booking.findMany();
+    return this.prisma.event.findMany();
   }
 
-  findOne(email: string) {
-    return this.prisma.booking.findUnique({
+  findOne(id: string) {
+    return this.prisma.event.findUnique({
       where: {
-        email,
+        id,
       },
     });
   }
 
-  async update({ id }: UpdateBookingInput) {
+  async update({ id }: UpdateEventInput) {
     const res = await this.prisma.booking.findUnique({
       where: {
         id,
