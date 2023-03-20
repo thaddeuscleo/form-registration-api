@@ -9,31 +9,31 @@ export class EventsResolver {
   constructor(private readonly eventsService: EventsService) {}
 
   @Mutation(() => Event)
-  createBooking(
+  createEvent(
     @Args('createEventInput') createEventInput: CreateEventInput,
   ) {
     return this.eventsService.create(createEventInput);
   }
 
-  @Query(() => [Event], { name: 'bookings' })
+  @Query(() => [Event], { name: 'events' })
   findAll() {
     return this.eventsService.findAll();
   }
 
-  @Query(() => Event, { name: 'booking' })
+  @Query(() => Event, { name: 'event' })
   findOne(@Args('email', { type: () => String }) email: string) {
     return this.eventsService.findOne(email);
   }
 
   @Mutation(() => Event)
-  updateBooking(
+  updateEvent(
     @Args('updateEventInput') updateEventInput: UpdateEventInput,
   ) {
     return this.eventsService.update(updateEventInput);
   }
 
   @Mutation(() => Event)
-  removeBooking(@Args('id', { type: () => String }) id: string) {
+  removeEvent(@Args('id', { type: () => String }) id: string) {
     return this.eventsService.remove(id);
   }
 }

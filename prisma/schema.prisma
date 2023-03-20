@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Booking {
-  id              String   @id @default(uuid())
+  id              String   @id @default(dbgenerated("nanoid(6)")) @db.VarChar(6)
   name            String   @db.VarChar(20)
   email           String   @unique
   phone           String   @unique

@@ -25,6 +25,21 @@ type Booking {
   phone: String!
 }
 
+input CreateBookingInput {
+  """Number of seat booked by the person"""
+  bookedSeatCount: Int!
+
+  """Person email"""
+  email: String!
+  eventId: ID!
+
+  """Person Name"""
+  name: String!
+
+  """Person Phone"""
+  phone: String!
+}
+
 input CreateEventInput {
   """Person Name"""
   name: String!
@@ -50,14 +65,35 @@ type Event {
 }
 
 type Mutation {
-  createBooking(createBookingInput: CreateEventInput!): Event!
-  removeBooking(id: String!): Event!
-  updateBooking(updateBookingInput: UpdateEventInput!): Event!
+  createBooking(createBookingInput: CreateBookingInput!): Booking!
+  createEvent(createEventInput: CreateEventInput!): Event!
+  removeBooking(id: String!): Booking!
+  removeEvent(id: String!): Event!
+  updateBooking(updateBookingInput: UpdateBookingInput!): Booking!
+  updateEvent(updateEventInput: UpdateEventInput!): Event!
 }
 
 type Query {
-  booking(email: String!): Event!
-  bookings: [Event!]!
+  booking(email: String!): Booking!
+  bookings: [Booking!]!
+  event(email: String!): Event!
+  events: [Event!]!
+}
+
+input UpdateBookingInput {
+  """Number of seat booked by the person"""
+  bookedSeatCount: Int
+
+  """Person email"""
+  email: String
+  eventId: ID
+  id: ID!
+
+  """Person Name"""
+  name: String
+
+  """Person Phone"""
+  phone: String
 }
 
 input UpdateEventInput {
