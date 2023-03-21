@@ -7,8 +7,6 @@ ENV DATABASE_URL=${DATABASEURL}
 # Create app directory
 WORKDIR /usr/src/app
 
-RUN echo "testing: $DATABASE_URL"
-
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 COPY . .
@@ -22,6 +20,9 @@ RUN npm i -g @nestjs/cli
 RUN npm run build
 
 FROM node:19-alpine3.16 AS production
+
+ARG DATABASEURL=""
+ENV DATABASE_URL=${DATABASEURL}
 
 EXPOSE 8080
 
