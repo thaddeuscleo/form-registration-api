@@ -1,0 +1,3 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/fir-test-30710/github.com/thaddeuscleo/gc-easter-form-api:$COMMIT_SHA', '--build-arg', 'DATABASE_URL="postgresql://admin:password@localhost:5432/gc-form-api?schema=public"', '-f', 'Dockerfile', '.']

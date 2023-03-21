@@ -1,7 +1,11 @@
 FROM node:19-alpine3.16 AS build
 
+ARG DATABASE_URL=""
+
 # Create app directory
 WORKDIR /usr/src/app
+
+RUN echo "testing: $DATABASE_URL"
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
