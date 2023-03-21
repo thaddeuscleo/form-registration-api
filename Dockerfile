@@ -1,6 +1,8 @@
 FROM node:19-alpine3.16 AS build
 
-ARG DATABASE_URL=""
+# Retrive database url
+ARG DATABASEURL=""
+ENV DATABASE_URL=${DATABASEURL}
 
 # Create app directory
 WORKDIR /usr/src/app
