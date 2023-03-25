@@ -36,5 +36,5 @@ coverage
 !**/.vscode/extensions.json
 
 # Env
-**/*.env
+# **/*.env
 fly.toml
