@@ -13,7 +13,7 @@ COPY . .
 
 # Install app dependencies
 RUN npm ci --omit=dev && npm cache clean --force
-RUN npx prisma migrate
+RUN npx prisma migrate deploy
 RUN npx prisma generate
 RUN npm i -g @nestjs/cli
 
