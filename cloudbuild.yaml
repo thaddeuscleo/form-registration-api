@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/fir-test-30710/github.com/thaddeuscleo/gc-easter-form-api:$COMMIT_SHA', '--build-arg', 'DATABASEURL=$_DATABASE_URL', '-f', 'Dockerfile', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/github.com/growcenter/gc-easter-form-api:$COMMIT_SHA', '--build-arg', 'DATABASEURL=$_DATABASE_URL', '-f', 'Dockerfile', '.']
 images:
-- 'gcr.io/fir-test-30710/github.com/thaddeuscleo/gc-easter-form-api'
+- 'gcr.io/$PROJECT_ID/github.com/growcenter/gc-easter-form-api'
