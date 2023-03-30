@@ -9,6 +9,9 @@ export class Event {
   @Field(() => String, { description: 'Event Name' })
   name: string;
 
+  @Field(() => String, { description: 'Event Date' })
+  eventDesc: string
+
   @Field(() => [Booking], {
     description: 'Bookings in a event',
   })

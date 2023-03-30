@@ -23,6 +23,7 @@ import { EventsModule } from 'src/events/events.module';
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
           sortSchema: true,
           playground: isPlayground,
+          introspection: (config.get<string>('ENVIROMENT') === 'PROD') ? false : true,
           subscriptions: {
             'graphql-ws': true,
           },

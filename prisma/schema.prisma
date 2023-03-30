@@ -25,6 +25,7 @@ model Booking {
 model Event {
   id        String    @id @default(uuid())
   name      String    @unique
+  eventDesc String  
   createdAt DateTime  @default(now())
   booking   Booking[]
 }

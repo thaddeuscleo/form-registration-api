@@ -41,7 +41,10 @@ input CreateBookingInput {
 }
 
 input CreateEventInput {
-  """Person Name"""
+  """Event Date"""
+  eventDesc: String!
+
+  """Event Name"""
   name: String!
 }
 
@@ -56,6 +59,9 @@ type Event {
 
   """Number of seat seated by the person"""
   createdAt: DateTime!
+
+  """Event Date"""
+  eventDesc: String!
 
   """Booking ID"""
   id: ID!
@@ -97,6 +103,8 @@ input UpdateBookingInput {
 }
 
 input UpdateEventInput {
+  """Event Date"""
+  eventDesc: String
   id: ID!
   name: String!
 }

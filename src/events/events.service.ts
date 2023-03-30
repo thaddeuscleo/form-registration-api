@@ -7,10 +7,11 @@ import { UpdateEventInput } from './dto/update-event.input';
 export class EventsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create({ name }: CreateEventInput) {
+  create({ name, eventDesc }: CreateEventInput) {
     return this.prisma.event.create({
       data: {
         name,
+        eventDesc
       },
     });
   }
