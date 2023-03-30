@@ -51,4 +51,12 @@ export class EventsService {
       },
     });
   }
+
+  getBooking(eventId: string) {
+    return this.prisma.booking.findMany({
+      where: {
+        eventId
+      }
+    })
+  }
 }
