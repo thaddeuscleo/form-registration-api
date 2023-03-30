@@ -16,8 +16,25 @@ export class EventsService {
     });
   }
 
-  findAll() {
-    return this.prisma.event.findMany();
+  async findAll() {
+    const res = await this.prisma.booking.groupBy({
+      by: ["eventId"],
+      _sum: {
+        bookedSeatCount: true,
+      }
+    });
+
+    const filteredId = res.filter(item => {
+      if(item._sum.bookedSeatCount > 1500){
+        return item.eventId
+      }
+    }).map(item => item.eventId)
+
+    return this.prisma.event.findMany({
+      where: {
+        NOT: [...filteredId.map<{id: string}>(id => ({id}))]
+      }
+    });
   }
 
   findOne(id: string) {
