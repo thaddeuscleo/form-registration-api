@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { GraphQLError } from 'graphql';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateBookingInput } from './dto/create-booking.input';
 import { UpdateBookingInput } from './dto/update-booking.input';
@@ -14,7 +15,7 @@ export class BookingsService {
         email,
         phone,
         bookedSeatCount,
-        eventId
+        eventId,
       },
     });
   }
@@ -23,12 +24,20 @@ export class BookingsService {
     return this.prisma.booking.findMany();
   }
 
-  findOne(email: string) {
-    return this.prisma.booking.findUnique({
-      where: {
-        email,
-      },
-    });
+  async findOne(email: string, phone: string) {
+    if (email != undefined) {
+      return this.prisma.booking.findUnique({
+        where: {
+          email,
+        },
+      });
+    } else {
+      return this.prisma.booking.findUnique({
+        where: {
+          phone: phone,
+        },
+      });
+    }
   }
 
   async update({ id }: UpdateBookingInput) {

@@ -3,6 +3,7 @@ import { BookingsService } from './bookings.service';
 import { Booking } from './entities/booking.entity';
 import { CreateBookingInput } from './dto/create-booking.input';
 import { UpdateBookingInput } from './dto/update-booking.input';
+import { GraphQLError } from 'graphql';
 
 @Resolver(() => Booking)
 export class BookingsResolver {
@@ -21,8 +22,27 @@ export class BookingsResolver {
   }
 
   @Query(() => Booking, { name: 'booking' })
-  findOne(@Args('email', { type: () => String }) email: string) {
-    return this.bookingsService.findOne(email);
+  async findOne(
+    @Args('email', {
+      type: () => String,
+      nullable: true,
+      defaultValue: undefined,
+    })
+    email: string,
+    @Args('phone', {
+      type: () => String,
+      nullable: true,
+      defaultValue: undefined,
+    })
+    phone: string,
+  ) {
+    const res = await this.bookingsService.findOne(email, phone);
+    if (res === null) {
+      throw new GraphQLError(
+        'No booking found with the provided email / booking code',
+      );
+    }
+    return res;
   }
 
   @Mutation(() => Booking)
