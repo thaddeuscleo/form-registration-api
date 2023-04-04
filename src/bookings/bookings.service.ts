@@ -52,9 +52,9 @@ export class BookingsService {
         id,
       },
     });
-    
-    if(res.attendanceCount >= res.bookedSeatCount) {
-      return null
+
+    if (res.attendanceCount >= res.bookedSeatCount) {
+      return null;
     }
 
     return this.prisma.booking.update({
@@ -71,6 +71,18 @@ export class BookingsService {
     return this.prisma.booking.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  getEvent(bookingId: string) {
+    return this.prisma.event.findFirst({
+      where: {
+        booking: {
+          some: {
+            id: bookingId,
+          },
+        },
       },
     });
   }

@@ -15,6 +15,9 @@ type Booking {
   """Person email"""
   email: String!
 
+  """Number of seat seated by the person"""
+  event: Event!
+
   """Booking ID"""
   id: ID!
 

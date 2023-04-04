@@ -1,9 +1,10 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { BookingsService } from './bookings.service';
 import { Booking } from './entities/booking.entity';
 import { CreateBookingInput } from './dto/create-booking.input';
 import { UpdateBookingInput } from './dto/update-booking.input';
 import { GraphQLError } from 'graphql';
+import { Event } from 'src/events/entities/event.entity';
 
 @Resolver(() => Booking)
 export class BookingsResolver {
@@ -65,5 +66,10 @@ export class BookingsResolver {
   @Mutation(() => Booking)
   removeBooking(@Args('id', { type: () => String }) id: string) {
     return this.bookingsService.remove(id);
+  }
+
+  @ResolveField(() => Event)
+  event(@Parent() booking: Booking) {
+    return this.bookingsService.getEvent(booking.id);
   }
 }

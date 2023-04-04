@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { Event } from 'src/events/entities/event.entity';
 
 @ObjectType()
 export class Booking {
@@ -22,4 +23,7 @@ export class Booking {
 
   @Field(() => Date, { description: 'Number of seat seated by the person' })
   createdAt: Date;
+
+  @Field(() => Event, { description: 'Number of seat seated by the person' })
+  event: Event;
 }
