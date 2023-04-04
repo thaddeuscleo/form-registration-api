@@ -35,8 +35,14 @@ export class BookingsResolver {
       defaultValue: undefined,
     })
     phone: string,
+    @Args('id', {
+      type: () => String,
+      nullable: true,
+      defaultValue: undefined,
+    })
+    id: string,
   ) {
-    const res = await this.bookingsService.findOne(email, phone);
+    const res = await this.bookingsService.findOne(email, phone, id);
     if (res === null) {
       throw new GraphQLError(
         'No booking found with the provided email / booking code',
@@ -46,10 +52,14 @@ export class BookingsResolver {
   }
 
   @Mutation(() => Booking)
-  updateBooking(
+  async updateBooking(
     @Args('updateBookingInput') updateBookingInput: UpdateBookingInput,
   ) {
-    return this.bookingsService.update(updateBookingInput);
+    const res = await this.bookingsService.update(updateBookingInput)
+    if(res == null) {
+      throw new GraphQLError("Cannot attend more than booked!");
+    }
+    return res;
   }
 
   @Mutation(() => Booking)

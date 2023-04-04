@@ -24,17 +24,23 @@ export class BookingsService {
     return this.prisma.booking.findMany();
   }
 
-  async findOne(email: string, phone: string) {
+  async findOne(email: string, phone: string, id: string) {
     if (email != undefined) {
       return this.prisma.booking.findUnique({
         where: {
           email,
         },
       });
+    } else if (phone != undefined) {
+      return this.prisma.booking.findUnique({
+        where: {
+          phone,
+        },
+      });
     } else {
       return this.prisma.booking.findUnique({
         where: {
-          phone: phone,
+          id,
         },
       });
     }
@@ -46,6 +52,11 @@ export class BookingsService {
         id,
       },
     });
+    
+    if(res.attendanceCount >= res.bookedSeatCount) {
+      return null
+    }
+
     return this.prisma.booking.update({
       data: {
         attendanceCount: res.attendanceCount + 1,

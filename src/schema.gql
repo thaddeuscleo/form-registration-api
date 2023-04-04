@@ -80,7 +80,7 @@ type Mutation {
 }
 
 type Query {
-  booking(email: String, phone: String): Booking!
+  booking(email: String, id: String, phone: String): Booking!
   bookings: [Booking!]!
   event(email: String!): Event!
   events: [Event!]!
