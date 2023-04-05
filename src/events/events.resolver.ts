@@ -26,6 +26,11 @@ export class EventsResolver {
     return this.eventsService.findAll();
   }
 
+  @Query(() => [Event], { name: 'allEvents' })
+  findAllWithoutLimit() {
+    return this.eventsService.findAllWithoutLimit();
+  }
+
   @Query(() => Event, { name: 'event' })
   findOne(@Args('email', { type: () => String }) email: string) {
     return this.eventsService.findOne(email);

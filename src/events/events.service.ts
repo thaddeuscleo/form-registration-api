@@ -11,30 +11,36 @@ export class EventsService {
     return this.prisma.event.create({
       data: {
         name,
-        eventDesc
+        eventDesc,
       },
     });
   }
 
   async findAll() {
     const res = await this.prisma.booking.groupBy({
-      by: ["eventId"],
+      by: ['eventId'],
       _sum: {
         bookedSeatCount: true,
-      }
+      },
     });
 
-    const filteredId = res.filter(item => {
-      if(item._sum.bookedSeatCount > 1500){
-        return item.eventId
-      }
-    }).map(item => item.eventId)
+    const filteredId = res
+      .filter((item) => {
+        if (item._sum.bookedSeatCount > 1500) {
+          return item.eventId;
+        }
+      })
+      .map((item) => item.eventId);
 
     return this.prisma.event.findMany({
       where: {
-        NOT: [...filteredId.map<{id: string}>(id => ({id}))]
-      }
+        NOT: [...filteredId.map<{ id: string }>((id) => ({ id }))],
+      },
     });
+  }
+
+  findAllWithoutLimit() {
+    return this.prisma.event.findMany({});
   }
 
   findOne(id: string) {
@@ -72,8 +78,8 @@ export class EventsService {
   getBooking(eventId: string) {
     return this.prisma.booking.findMany({
       where: {
-        eventId
-      }
-    })
+        eventId,
+      },
+    });
   }
 }

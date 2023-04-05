@@ -83,6 +83,7 @@ type Mutation {
 }
 
 type Query {
+  allEvents: [Event!]!
   booking(email: String, id: String, phone: String): Booking!
   bookings: [Booking!]!
   event(email: String!): Event!
